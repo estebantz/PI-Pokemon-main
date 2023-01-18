@@ -1,0 +1,16 @@
+.card {
+    text-transform: uppercase;
+    color: aliceblue;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 354px;
+    margin: 10px;
+    border-radius: 50px;
+    background: #202020;
+    box-shadow: 10px 10px 40px #bebebe,
+        -10px -10px 40px #a1a0a0;
+}
