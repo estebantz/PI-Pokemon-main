@@ -148,7 +148,6 @@ const CreatePokemon = () => {
           </div>
 
           <div>
-            <hr />
             <div>
               {newPokemon.tipo.map((t) => (
                 <div>
@@ -162,8 +161,9 @@ const CreatePokemon = () => {
                 </div>
               ))}
             </div>
+            <hr />
           </div>
-          {error ? <h3 className="errorCreate">{error}</h3> : null}
+          {error && <h3 className="errorCreate">{error}</h3>}
           <button class="cssbuttons-io-button">
             {" "}
             Crear Pokemon

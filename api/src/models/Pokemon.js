@@ -5,9 +5,9 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define("pokemon", {
     id: {
-      type: DataTypes.UUID, // genera un num random con letras y numeros q va a ser unico y no se repite
+      type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      allowNull: false, // q este en false, sig no te permito q este vacio
+      allowNull: false,
       primaryKey: true,
     },
     name: {
@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
       unique: true,
     },
     life_points: {
-      type: DataTypes.INTEGER, //El tipo de datos INTEGER almacena números enteros
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     attack: {
@@ -45,7 +45,7 @@ module.exports = (sequelize) => {
         "https://i0.wp.com/www.alphr.com/wp-content/uploads/2016/07/whos_that_pokemon.png?resize=738%2C320&ssl=1",
     },
     createdInDb: {
-      type: DataTypes.BOOLEAN, //por si quiero hacer un llamado a lo q esta solo en la base de datos
+      type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,
     },

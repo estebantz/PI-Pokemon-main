@@ -1,5 +1,4 @@
 import axios from "axios";
-// aca se realiza la coneccion entre el front y el back
 
 export function getPokemons() {
   return async function (dispatch) {

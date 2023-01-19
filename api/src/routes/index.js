@@ -46,7 +46,7 @@ const getApiInfo = async (link) => {
               height: p.height,
               weight: p.weight,
               img: p.sprites.other.dream_world.front_default,
-              types: p.types.map((y) => y.type.name), // hago map xq me devuelve un arreglo con varios tipos
+              types: p.types.map((y) => y.type.name),
             };
           });
         })
@@ -64,10 +64,9 @@ const getApiInfo = async (link) => {
 
 const getDbInfo = async () => {
   const pokemon23 = await Pokemon.findAll({
-    //findall para traer todos mis pok d la BD , include: especifico q quiero icluir
     include: {
       model: Tipo,
-      attributes: ["name"], //del modelo tipo traeme el atributo name
+      attributes: ["name"],
       through: {
         attributes: [],
       },
@@ -129,8 +128,7 @@ const getTypes = async () => {
         });
       });
     await Tipo.bulkCreate(tipoDb, {
-      //bulkcreate creado con la  finalidad de ejecutar
-      returning: true, //las creaciones en la Base de Datos de forma mucho mas rápida,
+      returning: true,
     });
 
     let typesCreated = await Tipo.findAll();
@@ -220,7 +218,7 @@ const postPokemon = async (
 };
 
 router.get("/pokemons", async (req, res) => {
-  const { name } = req.query; // busca si hay un name x query, respecto del nombre que yo escriba en la url
+  const { name } = req.query;
 
   if (name) {
     const pokemon = await Pokemon.findOne({
