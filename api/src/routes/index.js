@@ -177,46 +177,6 @@ const getOnePokemon = async (id) => {
   }
 };
 
-const postPokemon = async (
-  name,
-  life_points,
-  attack,
-  defense,
-  speed,
-  height,
-  weight,
-  img,
-  tipo
-) => {
-  if (name)
-    try {
-      let pokemon = await Pokemon.create({
-        name,
-        life_points,
-        attack,
-        defense,
-        speed,
-        height,
-        weight,
-        img,
-      });
-      let tipos = await Tipo.findAll({
-        where: {
-          name: tipo,
-        },
-      });
-      await pokemon.addTipo(tipos);
-      return "pokemon creado correctamente";
-    } catch (e) {
-      if (err.name === "SequelizeUniqueConstraintError") {
-        return "El Nombre del Pokemon ya Existe";
-      }
-    }
-  else {
-    return "falta algun dato";
-  }
-};
-
 router.get("/pokemons", async (req, res) => {
   const { name } = req.query;
 
@@ -270,6 +230,46 @@ router.get("/pokemons/:id", async (req, res) => {
   }
 });
 
+const postPokemon = async (
+  name,
+  life_points,
+  attack,
+  defense,
+  speed,
+  height,
+  weight,
+  img,
+  tipo
+) => {
+  if (name)
+    try {
+      let pokemon = await Pokemon.create({
+        name,
+        life_points,
+        attack,
+        defense,
+        speed,
+        height,
+        weight,
+        img,
+      });
+      let tipos = await Tipo.findAll({
+        where: {
+          name: tipo,
+        },
+      });
+      await pokemon.addTipo(tipos);
+      return "pokemon creado correctamente";
+    } catch (err) {
+      if (err.name === "SequelizeUniqueConstraintError") {
+        return "El Nombre del Pokemon ya Existe";
+      }
+    }
+  else {
+    return "falta algun dato";
+  }
+};
+
 router.post("/pokemons", async (req, res) => {
   try {
     const {
@@ -310,6 +310,68 @@ router.post("/pokemons", async (req, res) => {
   } catch (error) {
     //console.log(error)
     res.status(404).send("el pokemon ya existe");
+  }
+});
+
+router.post("/types", async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    console.log(name);
+
+    const agregarTipos = await Tipo.create({ name });
+    res.status(200).send(agregarTipos);
+  } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      res.status(400).send("El Tipo ya Existe");
+    }
+  }
+});
+
+router.delete("/types/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const delTipo = await Tipo.destroy({ where: { id: id } });
+    res.status(200).send(`Se elimino el tipo :${delTipo}`);
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("Ocurrio un problema");
+  }
+});
+
+router.put("/types/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name } = req.body;
+
+    const putTipo = await Tipo.update({ name: name }, { where: { id: id } });
+    res.status(200).send(`Se cambio al tipo :${putTipo}`);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send("No se pudo realizar el cambio");
+  }
+});
+
+router.delete("/pokemons/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (
+      /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(
+        id
+      )
+    ) {
+      const delPokemon = await Pokemon.destroy({
+        where: { id: id },
+      });
+      res
+        .status(200)
+        .send(`EL pokemnon :${delPokemon} ha sido eliminado correctamente`);
+    } else {
+      res.status(404).send("El id No tiene el formato correcto");
+    }
+  } catch (err) {
+    res.status(404).send("hubo un error al tratar de eliminar el pokemon");
   }
 });
 

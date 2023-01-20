@@ -18,7 +18,7 @@ import "./Home.css";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const allPokemons = useSelector((state) => state.pokemons); //useSELECTOR es un Hook que nos permite extraer datos del store
+  const allPokemons = useSelector((state) => state.pokemons);
   const [orden, setOrden] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonsPerPage, setPokemonsPerPage] = useState(12);
@@ -46,8 +46,7 @@ export default function Home() {
   }
 
   function handleSort(e) {
-    // sirve para ordenar o redondear
-    e.preventDefault(); //preventdefault cualquier accion por defecto no ocurrira
+    e.preventDefault();
     dispatch(orderByname(e.target.value));
     setCurrentPage(1);
     setOrden(`Ordenado ${e.target.value}`);
