@@ -41,25 +41,25 @@ export default function Home() {
   }, []);
 
   function handleClick(e) {
-    e.preventDefault();
+    // e.preventDefault();
     dispatch(getPokemons());
   }
 
   function handleSort(e) {
-    e.preventDefault();
-    dispatch(orderByname(e.target.value));
+    // e.preventDefault();
     setCurrentPage(1);
+    dispatch(orderByname(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
   }
 
   function handleFilterTypes(e) {
-    dispatch(filterPokemonsByTypes(e.target.value));
     setCurrentPage(1);
+    dispatch(filterPokemonsByTypes(e.target.value));
   }
 
   function handleFilterCreated(e) {
-    dispatch(filterCreated(e.target.value));
     setCurrentPage(1);
+    dispatch(filterCreated(e.target.value));
   }
 
   return (
@@ -97,20 +97,20 @@ export default function Home() {
         </button>
       </div>
       <div>
-        <select onChange={(e) => handleSort(e)}>
+        <select onChange={handleSort}>
           <option value="asc">Ascendete</option>
           <option value="dsc">Descendente</option>
           <option value="az">A - Z</option>
           <option value="za">Z - A</option>
         </select>
-        <select onChange={(e) => handleFilterTypes(e)}>
+        <select onChange={handleFilterTypes}>
           <option value="ALL">Todos</option>
           {allTypes?.map((c) => {
             return <option value={c.name}>{c.name}</option>;
           })}
         </select>
 
-        <select onChange={(e) => handleFilterCreated(e)}>
+        <select onChange={handleFilterCreated}>
           <option value="All">Todos</option>
           <option value="created">Creados</option>
           <option value="api">Existentes</option>
