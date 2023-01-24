@@ -49,7 +49,7 @@ function rootReducer(state = initialState, action) {
       console.log(state.pokemonsbackup);
       let sortedArr =
         action.payload === "az"
-          ? state.pokemonsbackup.sort(function (a, b) {
+          ? state.pokemons.sort(function (a, b) {
               if (a.name > b.name) {
                 return 1;
               }
@@ -59,7 +59,7 @@ function rootReducer(state = initialState, action) {
               return 0;
             })
           : action.payload === "za"
-          ? state.pokemonsbackup.sort(function (a, b) {
+          ? state.pokemons.sort(function (a, b) {
               if (a.name > b.name) {
                 return -1;
               }
@@ -68,7 +68,7 @@ function rootReducer(state = initialState, action) {
               }
             })
           : action.payload === "asc"
-          ? state.pokemonsbackup.sort(function (a, b) {
+          ? state.pokemons.sort(function (a, b) {
               if (a.attack > b.attack) {
                 return 1;
               }
@@ -77,7 +77,7 @@ function rootReducer(state = initialState, action) {
               }
               return 0;
             })
-          : state.pokemonsbackup.sort(function (a, b) {
+          : state.pokemons.sort(function (a, b) {
               if (a.attack > b.attack) {
                 return -1;
               }

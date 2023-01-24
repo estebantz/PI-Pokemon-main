@@ -41,12 +41,14 @@ export default function Home() {
   }, []);
 
   function handleClick(e) {
-    // e.preventDefault();
+    e.preventDefault();
     dispatch(getPokemons());
+    var form = document.getElementById("resetearForm");
+    form.reset();
   }
 
   function handleSort(e) {
-    // e.preventDefault();
+    e.preventDefault();
     setCurrentPage(1);
     dispatch(orderByname(e.target.value));
     setOrden(`Ordenado ${e.target.value}`);
@@ -96,7 +98,7 @@ export default function Home() {
           RECARGA TU LISTA !
         </button>
       </div>
-      <div>
+      <form id="resetearForm">
         <select onChange={handleSort}>
           <option value="asc">Ascendete</option>
           <option value="dsc">Descendente</option>
@@ -143,7 +145,7 @@ export default function Home() {
             <h5>No se encontraron pokemons con esas caracteristicas</h5>
           )}
         </div>
-      </div>
+      </form>
     </div>
   );
 }
