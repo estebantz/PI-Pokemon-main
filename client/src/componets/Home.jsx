@@ -43,8 +43,8 @@ export default function Home() {
   function handleClick(e) {
     e.preventDefault();
     dispatch(getPokemons());
-    var form = document.getElementById("resetearForm");
-    form.reset();
+    // var form = document.getElementById("resetearForm");
+    // form.reset();
   }
 
   function handleSort(e) {
@@ -98,7 +98,7 @@ export default function Home() {
           RECARGA TU LISTA !
         </button>
       </div>
-      <form id="resetearForm">
+      <div>
         <select onChange={handleSort}>
           <option value="asc">Ascendete</option>
           <option value="dsc">Descendente</option>
@@ -145,7 +145,7 @@ export default function Home() {
             <h5>No se encontraron pokemons con esas caracteristicas</h5>
           )}
         </div>
-      </form>
+      </div>
     </div>
   );
 }

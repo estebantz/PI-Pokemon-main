@@ -87,7 +87,7 @@ router.post("/pokemons", async (req, res) => {
       tipo,
     } = req.body;
 
-    const pok = await Pokemon.create(
+    let pokemon = await Pokemon.create({
       name,
       life_points,
       attack,
@@ -96,31 +96,23 @@ router.post("/pokemons", async (req, res) => {
       height,
       weight,
       img,
-      tipo
-    );
-    tipo?.forEach(async (tipo) => {
-      const found = await Tipo.findAll({ where: { name: tipo } });
-      await pok.addTipo(found);
     });
-    res.status(200).send("El pokemon fue creado correctamente");
+
+    tipo?.forEach(async (tipo) => {
+      const found = await Tipo.findAll({
+        where: {
+          name: tipo,
+        },
+      });
+      await pokemon.addTipo(found);
+    });
+
+    res.status(200).send("Pokemon creado correctamente");
   } catch (error) {
+    console.log("ERROR EN POST POKEMON");
     console.log(error);
-    res.status(404).send("el pokemon ya existe");
-  }
-});
-
-router.post("/types", async (req, res) => {
-  try {
-    const { name } = req.body;
-
-    console.log(name);
-
-    const agregarTipos = await Tipo.create({ name });
-    res.status(200).send(agregarTipos);
-  } catch (error) {
-    if (error.name === "SequelizeUniqueConstraintError") {
-      res.status(400).send("El Tipo ya Existe");
-    }
+    console.log("ERROR EN POST POKEMON");
+    res.status(404).send(error.message);
   }
 });
 
